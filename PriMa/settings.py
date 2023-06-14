@@ -37,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'Users'
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,6 +76,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'PriMa.wsgi.application'
 
+LOGIN_REDIRECT_URL = 'home'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
