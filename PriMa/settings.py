@@ -39,11 +39,22 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'crispy_forms',
     'crispy_bootstrap5',
+    'captcha',
     'Users'
 ]
 
+# EMAIL CONFIG
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'noreply.primadg@gmail.com'
+EMAIL_HOST_PASSWORD = 'uzhspzlosfraqxkd'
+EMAIL_PORT = 587
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+RECAPTCHA_PUBLIC_KEY = '6LfpARIlAAAAACBn-kzwHOPWrPEKB9UwwAZ5Xnny'
+RECAPTCHA_PRIVATE_KEY = '6LfpARIlAAAAADu9OWLbCvNN8vhScU6GPCw8fmL5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,7 +87,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'PriMa.wsgi.application'
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = '/home'
+LOGOUT_REDIRECT_URL = '/home'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

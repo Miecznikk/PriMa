@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.db import transaction
+from captcha.fields import ReCaptchaField
 from .models import CustomerUser
 
 class RegisterForm(UserCreationForm):
@@ -15,10 +16,14 @@ class RegisterForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
         strip=False,
     )
-
+    email = forms.CharField(required=True, widget=forms.EmailInput(attrs={'class': 'validate', }))
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
+    captcha = ReCaptchaField(required=True)
     class Meta:
         model = User
         fields = ['username','first_name','last_name','email']
+
         help_texts = {
             'username': None,
         }
