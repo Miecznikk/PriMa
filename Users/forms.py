@@ -20,6 +20,7 @@ class RegisterForm(UserCreationForm):
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
     captcha = ReCaptchaField(required=True)
+
     class Meta:
         model = User
         fields = ['username','first_name','last_name','email']

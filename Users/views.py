@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
@@ -16,7 +17,7 @@ def sign_up(request):
             user.is_active = False
             user.save()
             EmailService.send_confirmation_mail_to_user(request,user,form.cleaned_data.get('email'))
-            return redirect('home')
+            return HttpResponse("Check your mail to activate the account")
     form = RegisterForm()
     return render(request,'registration/sign_up.html', {'form': form})
 
@@ -31,5 +32,5 @@ def activate(request,uidb64,token):
     if user is not None and account_activation_token.check_token(user,token):
         user.is_active = True
         user.save()
-        return redirect('home')
-    return redirect('home')
+        return HttpResponse('Account activated succesfully')
+    return HttpResponse('Activation link is incorrect or your account is already activated')

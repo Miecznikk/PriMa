@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'captcha',
-    'Users'
+    'Users',
+    'Messages',
 ]
 
 # EMAIL CONFIG

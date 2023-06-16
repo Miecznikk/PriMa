@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for message in messages %}
+        <h2>{{ message.title }}</h2>
+        <p> {{ message.description }}</p>
+    {% endfor %}
+    <a class="btn btn-outline-primary">Send Message</a>
+{% endblock %}
