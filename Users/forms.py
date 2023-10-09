@@ -1,9 +1,10 @@
-from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.db import transaction
 from captcha.fields import ReCaptchaField
 from .models import CustomerUser
+
 
 class RegisterForm(UserCreationForm):
     password1 = forms.CharField(
@@ -23,7 +24,7 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username','first_name','last_name','email']
+        fields = ['username', 'first_name', 'last_name', 'email']
 
         help_texts = {
             'username': None,
@@ -35,6 +36,7 @@ class RegisterForm(UserCreationForm):
         user.save()
         customer_user = CustomerUser.objects.create(user=user)
         return user
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label="Username")
