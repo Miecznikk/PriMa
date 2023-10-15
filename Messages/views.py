@@ -1,15 +1,16 @@
 from django.shortcuts import render
+from django.views import View
+
 from .models import Message
 from .forms import SendMessageForm
 
 
-def my_messages(request):
-    messages = Message.objects.filter(receiver=request.user)
-    return render(request, 'messages/my_messages.html', {
-        'messages': messages
-    })
-
-
+class MyMessages(View):
+    def get(self, request):
+        messages = Message.objects.filter(receiver=request.user)
+        return render(request, 'messages/my_messages.html', {
+            'messages': messages
+        })
 def send_message(request):
     if request.method == "POST":
         form = SendMessageForm(request.POST)
