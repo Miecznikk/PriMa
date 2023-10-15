@@ -1,0 +1,146 @@
+[
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 1,
+    "fields": {
+      "image": "/images/apartments/2.jpg",
+      "caption": "image",
+      "apartment": 1
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 2,
+    "fields": {
+      "image": "/images/apartments/3.jpg",
+      "caption": "image",
+      "apartment": 1
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 3,
+    "fields": {
+      "image": "/images/apartments/5.jpg",
+      "caption": "image",
+      "apartment": 1
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 4,
+    "fields": {
+      "image": "/images/apartments/2.jpg",
+      "caption": "image",
+      "apartment": 2
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 5,
+    "fields": {
+      "image": "/images/apartments/3.jpg",
+      "caption": "image",
+      "apartment": 2
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 6,
+    "fields": {
+      "image": "/images/apartments/2.jpg",
+      "caption": "image",
+      "apartment": 3
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 7,
+    "fields": {
+      "image": "/images/apartments/3.jpg",
+      "caption": "image",
+      "apartment": 3
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 8,
+    "fields": {
+      "image": "/images/apartments/5.jpg",
+      "caption": "image",
+      "apartment": 3
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 9,
+    "fields": {
+      "image": "/images/apartments/2.jpg",
+      "caption": "image",
+      "apartment": 4
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 10,
+    "fields": {
+      "image": "/images/apartments/3.jpg",
+      "caption": "image",
+      "apartment": 4
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 11,
+    "fields": {
+      "image": "/images/apartments/5.jpg",
+      "caption": "image",
+      "apartment": 4
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 12,
+    "fields": {
+      "image": "/images/apartments/2.jpg",
+      "caption": "image",
+      "apartment": 5
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 13,
+    "fields": {
+      "image": "/images/apartments/3.jpg",
+      "caption": "image",
+      "apartment": 5
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 14,
+    "fields": {
+      "image": "/images/apartments/2.jpg",
+      "caption": "image",
+      "apartment": 6
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 15,
+    "fields": {
+      "image": "/images/apartments/3.jpg",
+      "caption": "image",
+      "apartment": 6
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 16,
+    "fields": {
+      "image": "/images/apartments/5.jpg",
+      "caption": "image",
+      "apartment": 6
+    }
+  }
+]

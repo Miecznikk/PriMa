@@ -1,0 +1,68 @@
+[
+  {
+    "model": "Investments.apartment",
+    "pk": 1,
+    "fields": {
+      "building_number": 60,
+      "apartment_number": 1,
+      "area": 32,
+      "rooms": 1,
+      "investment": 1
+    }
+  },
+  {
+    "model": "Investments.apartment",
+    "pk": 2,
+    "fields": {
+      "building_number": 60,
+      "apartment_number": 2,
+      "area": 45,
+      "rooms": 2,
+      "investment": 1
+    }
+  },
+  {
+    "model": "Investments.apartment",
+    "pk": 3,
+    "fields": {
+      "building_number": 60,
+      "apartment_number": 3,
+      "area": 60,
+      "rooms": 3,
+      "investment": 1
+    }
+  },
+  {
+    "model": "Investments.apartment",
+    "pk": 4,
+    "fields": {
+      "building_number": 34,
+      "apartment_number": 1,
+      "area": 32,
+      "rooms": 1,
+      "investment": 2
+    }
+  },
+  {
+    "model": "Investments.apartment",
+    "pk": 5,
+    "fields": {
+      "building_number": 34,
+      "apartment_number": 2,
+      "area": 45,
+      "rooms": 2,
+      "investment": 2
+    }
+  },
+  {
+    "model": "Investments.apartment",
+    "pk": 6,
+    "fields": {
+      "building_number": 34,
+      "apartment_number": 3,
+      "area": 60,
+      "rooms": 3,
+      "investment": 2
+    }
+  }
+]

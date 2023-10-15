@@ -34,7 +34,7 @@ class RegisterForm(UserCreationForm):
     def save(self):
         user = super().save(commit=False)
         user.save()
-        customer_user = CustomerUser.objects.create(user=user)
+        CustomerUser.objects.create(user=user)
         return user
 
 

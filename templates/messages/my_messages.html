@@ -4,5 +4,5 @@
         <h2>{{ message.title }}</h2>
         <p> {{ message.description }}</p>
     {% endfor %}
-    <a class="btn btn-outline-primary">Send Message</a>
+    <a class="btn btn-outline-primary" href="{% url 'messages:send_message' %}">Send Message</a>
 {% endblock %}

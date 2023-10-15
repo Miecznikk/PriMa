@@ -28,3 +28,6 @@ urlpatterns = [
     path('',include('Users.urls',namespace='users')),
     path('',include('Messages.urls',namespace='messages'))
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

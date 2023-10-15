@@ -1,0 +1,18 @@
+[
+  {
+    "model": "Users.investoruser",
+    "pk": 1,
+    "fields": {
+      "user": 5,
+      "phone_number": "790898514"
+    }
+  },
+  {
+    "model": "Users.investoruser",
+    "pk": 2,
+    "fields": {
+      "user": 6,
+      "phone_number": "514386799"
+    }
+  }
+]

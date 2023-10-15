@@ -1,0 +1,24 @@
+[
+  {
+    "model": "Investments.investment",
+    "pk": 1,
+    "fields": {
+      "name": "Inwestycja Kołłątaja",
+      "image": "images/investments/1.jpg",
+      "street": "Kołłątaja",
+      "city": "Białystok",
+      "investor": 1
+    }
+  },
+  {
+    "model": "Investments.investment",
+    "pk": 2,
+    "fields": {
+      "name": "Inwestycja Sienkiewicza",
+      "image": "images/investments/4.jpeg",
+      "street": "Sienkiewicza",
+      "city": "Białystok",
+      "investor": 1
+    }
+  }
+]
