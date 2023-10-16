@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "name": "Inwestycja Kołłątaja",
-      "image": "images/investments/1.jpg",
+      "image": "images/investments/inv1.jpg",
       "street": "Kołłątaja",
       "city": "Białystok",
       "investor": 1
@@ -15,7 +15,51 @@
     "pk": 2,
     "fields": {
       "name": "Inwestycja Sienkiewicza",
-      "image": "images/investments/4.jpeg",
+      "image": "images/investments/inv4.jpg",
+      "street": "Sienkiewicza",
+      "city": "Białystok",
+      "investor": 1
+    }
+  },
+  {
+    "model": "Investments.investment",
+    "pk": 3,
+    "fields": {
+      "name": "Inwestycja Sienkiewicza",
+      "image": "images/investments/inv3.jpg",
+      "street": "Sienkiewicza",
+      "city": "Białystok",
+      "investor": 1
+    }
+  },
+  {
+    "model": "Investments.investment",
+    "pk": 4,
+    "fields": {
+      "name": "Inwestycja Sienkiewicza",
+      "image": "images/investments/inv1.jpg",
+      "street": "Sienkiewicza",
+      "city": "Białystok",
+      "investor": 1
+    }
+  },
+  {
+    "model": "Investments.investment",
+    "pk": 5,
+    "fields": {
+      "name": "Inwestycja Sienkiewicza",
+      "image": "images/investments/inv2.jpg",
+      "street": "Sienkiewicza",
+      "city": "Białystok",
+      "investor": 1
+    }
+  },
+  {
+    "model": "Investments.investment",
+    "pk": 6,
+    "fields": {
+      "name": "Inwestycja Sienkiewicza",
+      "image": "images/investments/inv4.jpg",
       "street": "Sienkiewicza",
       "city": "Białystok",
       "investor": 1

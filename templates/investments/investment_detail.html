@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ investment.name }}
+{% endblock %}
+{% block content %}
+    {{ investment.name }}
+    {% for apartment in apartments %}
+        {{ apartment.get_full_address }}
+    {% endfor %}
+{% endblock %}

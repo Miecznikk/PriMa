@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.urls import reverse
 
 from Users.models import InvestorUser
 
@@ -7,12 +8,16 @@ from Users.models import InvestorUser
 class Investment(models.Model):
     name = models.CharField(max_length=60, null=False)
     image = models.ImageField(upload_to='images/investments')
+    resized_image = models.ImageField(upload_to='images/investments/resized', blank=True, null=True)
     street = models.CharField(max_length=60, null=False)
     city = models.CharField(max_length=60, null=False)
     investor = models.ForeignKey(InvestorUser, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
+
+    def get_reversed_url(self):
+        return reverse('investments:investment_detail', args=[str(self.id)])
 
 
 class Apartment(models.Model):

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}
+    Investments
+{% endblock %}
+{% block content %}
+ <div class="container mt-4">
+    <h1>All Investments</h1>
+    <div class="row">
+      {% for investment in investments %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card investment-card">
+            <img src="{{ investment.image.url }}" class="card-img-top investment-image" alt="{{ investment.name }}">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-9">
+                  <h5 class="card-title">{{ investment.name }}</h5>
+                  <p class="card-text mb-0">
+                    <strong>Location:</strong> {{ investment.street }}, {{ investment.city }}
+                  </p>
+                  <p class="card-text">
+                    <strong>Investor:</strong> {{ investment.investor }}
+                  </p>
+                </div>
+                <div class="col-3 text-center d-flex justify-content-center align-items-center">
+                  <a href="{{ investment.get_reversed_url }}" class="btn btn-primary btn-sm">Check</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

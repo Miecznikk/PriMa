@@ -1,0 +1,9 @@
+ .investment-card {
+      width: 100%;
+      max-width: 400px; /* Adjust as needed */
+    }
+
+    .investment-image {
+      width: 100%; /* Set a fixed width in pixels */
+      height: 225px; /* Set a fixed height in pixels */
+    }
