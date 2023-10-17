@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
-
+from django.db.models import Min,Max
 from Users.models import InvestorUser
 
 
@@ -18,6 +18,14 @@ class Investment(models.Model):
 
     def get_reversed_url(self):
         return reverse('investments:investment_detail', args=[str(self.id)])
+
+    def get_area_range(self):
+        apartments = Apartment.objects.filter(investment=self).aggregate(min_area=Min('area'),
+                                                                         max_area=Max('area'))
+        min_area = apartments['min_area']
+        max_area = apartments['max_area']
+
+        return f"{min_area}-{max_area}"
 
 
 class Apartment(models.Model):

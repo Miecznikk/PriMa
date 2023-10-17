@@ -1,9 +1,23 @@
- .investment-card {
-      width: 100%;
-      max-width: 400px; /* Adjust as needed */
-    }
+/* Custom styles for investment detail card */
+.custom-card {
+  width: 70%;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
 
-    .investment-image {
-      width: 100%; /* Set a fixed width in pixels */
-      height: 225px; /* Set a fixed height in pixels */
-    }
+.custom-card-image {
+  width: 100%; /* Set the image width to 100% to make it as wide as the card */
+  height: auto; /* Maintain the aspect ratio */
+}
+
+.custom-card-body {
+  text-align: center;
+  padding: 20px;
+}
+
+.apartment-image-small {
+  max-width: 50px;
+  max-height: 50px;
+}

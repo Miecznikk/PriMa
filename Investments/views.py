@@ -24,3 +24,13 @@ class InvestmentDetail(View):
                           "investment": investment,
                           "apartments": apartments
                       })
+
+
+class ApartmentDetail(View):
+    template_name = 'investments/apartment_detail.html'
+
+    def get(self,request,id):
+        apartment = get_object_or_404(Apartment, id=id)
+        return render(request,self.template_name,{
+            "apartment":apartment
+        })

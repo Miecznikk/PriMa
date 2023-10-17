@@ -1,10 +1,32 @@
 {% extends 'base.html' %}
-{% block title %}
-    {{ investment.name }}
-{% endblock %}
+
 {% block content %}
-    {{ investment.name }}
-    {% for apartment in apartments %}
-        {{ apartment.get_full_address }}
-    {% endfor %}
+  <div class="container">
+    <div class="investment-detail custom-card mb-4">
+      <img src="{{ investment.image.url }}" alt="{{ investment.name }}" class="custom-card-image">
+      <div class="custom-card-body">
+        <h2 class="card-title">{{ investment.name }}</h2>
+        <p class="card-text">City: {{ investment.city }}</p>
+        <p class="card-text">Street: {{ investment.street }}</p>
+        <p class="card-text">Investor: {{ investment.investor }}</p>
+      </div>
+    </div>
+
+    <h3>Apartments</h3>
+    <table class="table table-bordered">
+      <tbody>
+        {% for apartment in apartments %}
+          <tr>
+            <td style="width: 10%">
+              <img src="{{ apartment.images.first.image.url }}" alt="{{ apartment.building_number }}" style="max-width: 175px;max-height: 100px;">
+            </td>
+            <td>{{ apartment.get_full_address }}</td>
+            <td>{{ apartment.area }} square meters</td>
+            <td>{{ apartment.rooms }} {% if apartment.rooms > 1 %}rooms{% else %}room{% endif %}</td>
+            <td class="text-center" style="width: 10%;"><a href="{% url 'investments:apartment_detail' apartment.id %}" class="btn btn-primary">Details</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}
