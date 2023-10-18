@@ -7,7 +7,15 @@
       "apartment_number": 1,
       "area": 32,
       "rooms": 1,
-      "investment": 1
+      "investment": 1,
+      "floor": 0,
+      "has_balcony": false,
+      "has_garden": true,
+      "has_basement": true,
+      "has_garage": true,
+      "has_AC": false,
+      "two_floor_apartment": false,
+      "price": 500000
     }
   },
   {
@@ -18,7 +26,15 @@
       "apartment_number": 2,
       "area": 45,
       "rooms": 2,
-      "investment": 1
+      "investment": 1,
+      "floor": 1,
+      "has_balcony": true,
+      "has_garden": false,
+      "has_basement": true,
+      "has_garage": true,
+      "has_AC": false,
+      "two_floor_apartment": false,
+      "price": 800000
     }
   },
   {
@@ -29,7 +45,15 @@
       "apartment_number": 3,
       "area": 60,
       "rooms": 3,
-      "investment": 1
+      "investment": 1,
+      "floor": 1,
+      "has_balcony": true,
+      "has_garden": false,
+      "has_basement": true,
+      "has_garage": true,
+      "has_AC": false,
+      "two_floor_apartment": false,
+      "price": 950000
     }
   },
   {
@@ -40,7 +64,15 @@
       "apartment_number": 1,
       "area": 32,
       "rooms": 1,
-      "investment": 2
+      "investment": 2,
+      "floor": 0,
+      "has_balcony": false,
+      "has_garden": true,
+      "has_basement": true,
+      "has_garage": true,
+      "has_AC": false,
+      "two_floor_apartment": false,
+      "price": 450000
     }
   },
   {
@@ -51,7 +83,15 @@
       "apartment_number": 2,
       "area": 45,
       "rooms": 2,
-      "investment": 2
+      "investment": 2,
+      "floor": 1,
+      "has_balcony": true,
+      "has_garden": false,
+      "has_basement": true,
+      "has_garage": true,
+      "has_AC": false,
+      "two_floor_apartment": false,
+      "price": 650000
     }
   },
   {
@@ -62,7 +102,15 @@
       "apartment_number": 3,
       "area": 60,
       "rooms": 3,
-      "investment": 2
+      "investment": 2,
+      "floor": 1,
+      "has_balcony": true,
+      "has_garden": false,
+      "has_basement": true,
+      "has_garage": true,
+      "has_AC": false,
+      "two_floor_apartment": true,
+      "price": 810000
     }
   }
 ]
