@@ -30,9 +30,32 @@ class ApartmentSearchForm(forms.Form):
         MaxValueValidator(100_000_000, message="Value cannot exceed 100 million")])
     min_floor = forms.IntegerField(required=False, label='Minimum apartment floor', validators=[MaxValueValidator(20)])
     max_floor = forms.IntegerField(required=False, label='Maximum apartment floor', validators=[MaxValueValidator(20)])
-    has_balcony = forms.BooleanField(required=False, label='Balcony')
-    has_garden = forms.BooleanField(required=False, label='Garden')
-    has_basement = forms.BooleanField(required=False, label='Basement')
-    has_garage = forms.BooleanField(required=False, label='Garage')
-    has_AC = forms.BooleanField(required=False, label='Air Conditioning')
-    two_floor_apartment = forms.BooleanField(required=False, label='Two stories apartment')
+    has_balcony = forms.ChoiceField(required=False, label='Balcony',
+                                    choices=[(None, 'Don\'t care'), (True, 'Yes'), (False, 'No')],
+                                    widget=forms.RadioSelect)
+    has_garden = forms.ChoiceField(required=False, label='Garden',
+                                   choices=[(None, 'Don\'t care'), (True, 'Yes'), (False, 'No')],
+                                   widget=forms.RadioSelect)
+    has_basement = forms.ChoiceField(required=False, label='Basement',
+                                     choices=[(None, 'Don\'t care'), (True, 'Yes'), (False, 'No')],
+                                     widget=forms.RadioSelect)
+    has_garage = forms.ChoiceField(required=False, label='Garage',
+                                   choices=[(None, 'Don\'t care'), (True, 'Yes'), (False, 'No')],
+                                   widget=forms.RadioSelect)
+    has_AC = forms.ChoiceField(required=False, label='Air Conditioning',
+                               choices=[(None, 'Don\'t care'), (True, 'Yes'), (False, 'No')],
+                               widget=forms.RadioSelect)
+    two_floor_apartment = forms.ChoiceField(required=False, label='Two stories apartment',
+                                            choices=[(None, 'Don\'t care'), (True, 'Yes'), (False, 'No')],
+                                            widget=forms.RadioSelect)
+
+    def clean(self):
+        super().clean()
+        cd = self.cleaned_data
+        numeric_fields = {"area": float, "price": int, "rooms": int, "floor": int}
+        for field in numeric_fields:
+            min_value, max_value = cd.get(f"min_{field}"), cd.get(f"max_{field}")
+            if (min_value is not None and max_value is not None) and (numeric_fields[field](min_value) >
+                                                                      numeric_fields[field](max_value)):
+                raise forms.ValidationError(f"Minimum {field} cannot be greater than maximum {field}")
+        return cd

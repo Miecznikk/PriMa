@@ -22,6 +22,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'investments:all_investments' %}">Investments</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'investments:search' %}">Search</a>
+                </li>
               </ul>
               <div class="d-flex justify-content-center align-items-center my-auto">
                 {% if user.is_authenticated %}
