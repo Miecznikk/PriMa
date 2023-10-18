@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load crispy_forms_tags %}
+    <div class="container w-50 py-1 mb-2 bg-light">
+        <form class="w-50 mx-auto d-block mt-5 text-center">
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+{% endblock %}
