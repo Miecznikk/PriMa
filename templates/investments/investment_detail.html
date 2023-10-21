@@ -22,7 +22,7 @@
             </td>
             <td>{{ apartment.get_full_address }}</td>
             <td>{{ apartment.area }} square meters</td>
-            <td>{{ apartment.rooms }} {% if apartment.rooms > 1 %}rooms{% else %}room{% endif %}</td>
+            <td>{{ apartment.get_rooms_str }} </td>
             <td class="text-center" style="width: 10%;"><a href="{% url 'investments:apartment_detail' apartment.id %}" class="btn btn-primary">Details</a></td>
           </tr>
         {% endfor %}

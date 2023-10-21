@@ -23,12 +23,20 @@ class Investment(models.Model):
     def get_reversed_url(self):
         return reverse('investments:investment_detail', args=[str(self.id)])
 
+    def get_area_range(self):
+        return self.get_number_parameter_range("area")
+
+    def get_price_range(self):
+        return self.get_number_parameter_range("price")
+
     def get_number_parameter_range(self, parameter):
         try:
             field = Apartment._meta.get_field(parameter)
             if isinstance(field, (models.IntegerField, models.PositiveIntegerField, models.FloatField)):
                 apartments = Apartment.objects.filter(investment=self).aggregate(min_value=Min(parameter),
                                                                                  max_value=Max(parameter))
+                if apartments['min_value'] is None:
+                    return ""
                 return f"{apartments['min_value']} - {apartments['max_value']}"
             else:
                 return ""
@@ -72,6 +80,23 @@ class Apartment(models.Model):
 
     def get_price_per_square_meter(self):
         return f"{round(self.price / self.area, 2)}"
+
+    def get_rooms_str(self):
+        return f"{self.rooms} rooms" if self.rooms > 1 else f"{self.rooms} room"
+
+    def get_additional_info_string(self):
+        addons = [f"floor {self.floor}"]
+        if self.has_balcony:
+            addons.append("Balcony")
+        if self.has_garden:
+            addons.append("Garden")
+        if self.has_garage:
+            addons.append("Garage")
+        if self.has_AC:
+            addons.append("Air conditioning")
+        if self.two_floor_apartment:
+            addons.append("Two-floor apartment")
+        return ", ".join(addons)
 
 
 class ApartmentImage(models.Model):

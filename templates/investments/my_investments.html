@@ -12,16 +12,17 @@
               <img src="{{ investment.image.url }}" alt="{{ investment.name }}" class="img-thumbnail">
             </div>
             <div class="col-md-6">
-              <h2>{{ investment.name }}</h2>
-              <p><strong>Street:</strong> {{ investment.street }}</p>
-              <p><strong>City:</strong> {{ investment.city }}</p>
-              <p><strong>Investor:</strong> {{ investment.investor.user.get_full_name }}</p>
+                <h2>{{ investment.name }}</h2>
+                <p><strong>Location: </strong>{{ investment.street }} {{ investment.city }}</p>
+                <p><strong>Number of apartments: </strong>{{ investment.get_apartments_count }}</p>
+                <p><strong>Apartments area range: </strong>{{ investment.get_area_range }}m&sup2</p>
+                <p><strong>Apartments price range: </strong>{{ investment.get_price_range }}zł</p>
             </div>
             <div class="col-md-2 d-flex justify-content-end align-items-center">
               <a href="{% url 'investments:delete_investment' investment.id %}" class="btn btn-danger me-2">
                 Delete
                 </a>
-              <a href="" class="btn btn-primary">
+              <a href="{% url 'investments:my_apartments' investment.id %}" class="btn btn-primary">
                 Inspect
               </a>
             </div>

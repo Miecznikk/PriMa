@@ -8,7 +8,7 @@
         <h2 class="card-title">Building Number: {{ apartment.building_number }}</h2>
         <p class="card-text">Apartment Number: {{ apartment.apartment_number }}</p>
         <p class="card-text">Area: {{ apartment.area }} square meters</p>
-        <p class="card-text">Rooms: {{ apartment.rooms }}</p>
+        <p class="card-text">Rooms: {{ apartment.get_rooms_str }}</p>
       </div>
     </div>
 

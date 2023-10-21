@@ -113,7 +113,7 @@ class DeleteInvestmentView(View):
 
     def get(self, request, id):
         form = InvestmentDeletionForm()
-        investment = get_object_or_404(Investment, id=id)
+        investment = get_object_or_404(Investment, id=id, investor=request.user.investoruser)
         return render(request, self.template_name, {
             "investment": investment,
             "form": form
@@ -121,7 +121,7 @@ class DeleteInvestmentView(View):
 
     def post(self, request, id):
         form = InvestmentDeletionForm(request.POST)
-        investment = get_object_or_404(Investment, id=id)
+        investment = get_object_or_404(Investment, id=id, investor=request.user.investoruser)
 
         if form.is_valid():
             if form.cleaned_data['confirmation_field'] == investment.name:
@@ -150,7 +150,28 @@ class AddInvestmentView(View):
         form = InvestmentAddForm(request.POST, request.FILES)
         if form.is_valid():
             investment = form.save(commit=False)
-            investment.investor = get_object_or_404(InvestorUser, id = request.user.investoruser.id)
+            investment.investor = get_object_or_404(InvestorUser, id=request.user.investoruser.id)
             investment.save()
             return redirect('investments:my_investments')
-        return render(request,self.template_name,{"form":form})
+        return render(request, self.template_name, {"form": form})
+
+
+@method_decorator([login_required, investor_required], name='dispatch')
+class MyApartmentsView(View):
+    template_name = 'investments/my_apartments.html'
+
+    def get(self, request, investment):
+        investment = get_object_or_404(Investment, id=investment, investor=request.user.investoruser)
+        apartments = Apartment.objects.filter(investment=investment)
+        return render(request, self.template_name, {
+            "apartments": apartments,
+            "investment": investment
+        })
+
+
+@method_decorator([login_required, investor_required], name='dispatch')
+class MassDeleteApartmentsView(View):
+    def post(self, request):
+        apartments = Apartment.objects.filter(id__in=request.POST.getlist('apartment_ids'))
+        apartments.delete()
+        return redirect('investments:my_investments')

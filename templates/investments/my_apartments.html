@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mb-4">
+        <h1 class="mt-5">Apartments in {{ investment }}</h1>
+        <form method="post" action="{% url 'investments:mass_delete_apartments' %}" onsubmit="return confirm('Are you sure you want to delete selected apartments?');">
+        <a class="btn btn-success" href="">Add apartment</a>
+        <button type="submit" class="btn btn-danger">Mass Delete</button>
+        <a id="select_all" class="btn btn-outline-info">Select all</a>
+        <a id="deselect_all" class="btn btn-outline-info">Deselect all</a>
+            {% csrf_token %}
+            <ul class="list-group mt-4">
+                {% for apartment in apartments %}
+                    <li class="list-group-item">
+                        <div class="row position-relative">
+                            <input type="checkbox" name="apartment_ids" value="{{ apartment.id }}" style="width: 25px" class="position-absolute end-0 mt-2">
+                            <div class="col-md-3">
+                                <img src="{{ apartment.images.first.image.url }}" alt="{{ apartment.name }}" class="img-thumbnail">
+                            </div>
+                            <div class="col-md-6">
+                                <h2>{{ apartment.get_full_address }}</h2>
+                                <p><strong>Area: </strong>{{ apartment.area }}m&sup2 | {{ apartment.get_rooms_str }}</p>
+                                <p><strong>Price: </strong>{{ apartment.price }}zł | {{ apartment.get_price_per_square_meter }}zł/m&sup2</p>
+                                <p><strong>Additional Info: </strong>{{ apartment.get_additional_info_string }}</p>
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                                <a href="#" class="btn btn-info me-2">
+                                    Edit
+                                </a>
+                                <a href="{% url 'investments:apartment_detail' apartment.id %}" class="btn btn-primary">
+                                    Inspect
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <p class="mt-3">No apartments found.</p>
+                {% endfor %}
+            </ul>
+
+        </form>
+    </div>
+    <script>
+        document.getElementById('select_all').addEventListener('click', function () {
+            const checkboxes = document.querySelectorAll('input[name="apartment_ids"]');
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = true;
+            });
+        });
+        document.getElementById('deselect_all').addEventListener('click', function () {
+            const checkboxes = document.querySelectorAll('input[name="apartment_ids"]');
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+            });
+        });
+    </script>
+{% endblock %}
