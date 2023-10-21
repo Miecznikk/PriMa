@@ -3,6 +3,15 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
 
+def is_investor(self):
+    if hasattr(self, 'investoruser'):
+        return True
+    return False
+
+
+User.add_to_class("is_investor", is_investor)
+
+
 class CustomerUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False)
     phone_numer = models.CharField(max_length=9, validators=[

@@ -13,7 +13,6 @@ class Investment(models.Model):
 
     name = models.CharField(max_length=60, null=False)
     image = models.ImageField(upload_to='images/investments')
-    resized_image = models.ImageField(upload_to='images/investments/resized', blank=True, null=True)
     street = models.CharField(max_length=60, null=False)
     city = models.CharField(max_length=60, null=False)
     investor = models.ForeignKey(InvestorUser, on_delete=models.SET_NULL, null=True)
@@ -35,6 +34,9 @@ class Investment(models.Model):
                 return ""
         except FieldDoesNotExist as e:
             self.logger.error(str(e))
+
+    def get_apartments_count(self):
+        return len(Apartment.objects.filter(investment=self))
 
 
 class Apartment(models.Model):

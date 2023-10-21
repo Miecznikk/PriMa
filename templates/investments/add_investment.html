@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form class="w-50 mx-auto" method="post" enctype="multipart/form-data">
+        <h3>Add new investment</h3>
+        {% csrf_token %}
+        {% load crispy_forms_tags %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Add</button>
+    </form>
+{% endblock %}

@@ -1,6 +1,8 @@
 from django import forms
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+from Investments.models import Investment
+
 
 class ApartmentSearchForm(forms.Form):
     min_area = forms.FloatField(required=False, label='Minimum area (sq. meters)',
@@ -59,3 +61,13 @@ class ApartmentSearchForm(forms.Form):
                                                                       numeric_fields[field](max_value)):
                 raise forms.ValidationError(f"Minimum {field} cannot be greater than maximum {field}")
         return cd
+
+
+class InvestmentDeletionForm(forms.Form):
+    confirmation_field = forms.CharField(max_length=60, label="Type Investment name to proceed")
+
+
+class InvestmentAddForm(forms.ModelForm):
+    class Meta:
+        model = Investment
+        exclude = ('resized_image','investor')

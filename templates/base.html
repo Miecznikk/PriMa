@@ -25,10 +25,15 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'investments:search' %}">Search</a>
                 </li>
+                {% if user.is_investor %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'investments:my_investments' %}">My Investments</a>
+                </li>
+                {% endif %}
               </ul>
               <div class="d-flex justify-content-center align-items-center my-auto">
                 {% if user.is_authenticated %}
-                    <p class="me-2 my-auto">Welcome {{ user.first_name }}</p>
+                    <p class="text-light me-2 my-auto">Welcome {{ user.first_name }}</p>
                     <a class="btn btn-outline-danger" href="{% url 'logout' %}">Sign out</a>
                 {% else %}
                     <a class="btn btn-outline-primary" href="{% url 'users:login' %}">Sign In</a>
@@ -37,8 +42,10 @@
             </div>
           </div>
         </nav>
-        {% block content %}
+        <div class="container">
+            {% block content %}
 
-        {% endblock %}
+            {% endblock %}
+        </div>
     </body>
 </html>

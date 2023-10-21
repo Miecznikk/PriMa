@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
+from Users.models import InvestorUser
+from .decorators import investor_required
 from Investments.models import Investment, Apartment
-from .forms import ApartmentSearchForm
+from .forms import ApartmentSearchForm, InvestmentDeletionForm, InvestmentAddForm
 
 
-# Create your views here.
 class AllInvestments(View):
     template_name = 'investments/all_investments.html'
 
@@ -65,10 +68,10 @@ class TmpSearchView(View):
             min_rooms = cd.get("min_rooms") if cd.get("min_rooms") else 1
             max_rooms = cd.get("max_rooms") if cd.get("max_rooms") else 10
 
-            apartments = apartments.filter(area__gte=min_area,area__lte=max_area,
-                                           price__gte=min_price,price__lte=max_price,
-                                           floor__gte=min_floor,floor__lte=max_floor,
-                                           rooms__gte=min_rooms,rooms__lte=max_rooms)
+            apartments = apartments.filter(area__gte=min_area, area__lte=max_area,
+                                           price__gte=min_price, price__lte=max_price,
+                                           floor__gte=min_floor, floor__lte=max_floor,
+                                           rooms__gte=min_rooms, rooms__lte=max_rooms)
 
             has_balcony = cd.get("has_balcony") if cd.get("has_balcony") != '' else None
             has_garden = cd.get("has_garden") if cd.get("has_garden") != '' else None
@@ -91,3 +94,63 @@ class TmpSearchView(View):
 
             return redirect('/home')
         return render(request, self.template_name, {"form": search_form})
+
+
+@method_decorator([login_required, investor_required], name='dispatch')
+class MyInvestmentsView(View):
+    template_name = 'investments/my_investments.html'
+
+    def get(self, request):
+        investments = Investment.objects.filter(investor=request.user.investoruser)
+        return render(request, self.template_name, {
+            "investments": investments
+        })
+
+
+@method_decorator([login_required, investor_required], name='dispatch')
+class DeleteInvestmentView(View):
+    template_name = 'investments/delete_investment.html'
+
+    def get(self, request, id):
+        form = InvestmentDeletionForm()
+        investment = get_object_or_404(Investment, id=id)
+        return render(request, self.template_name, {
+            "investment": investment,
+            "form": form
+        })
+
+    def post(self, request, id):
+        form = InvestmentDeletionForm(request.POST)
+        investment = get_object_or_404(Investment, id=id)
+
+        if form.is_valid():
+            if form.cleaned_data['confirmation_field'] == investment.name:
+                investment.delete()
+                return redirect('investments:my_investments')
+            else:
+                form.add_error('confirmation_field', "Incorrect confirmation input")
+
+        return render(request, self.template_name, {
+            "investment": investment,
+            "form": form
+        })
+
+
+@method_decorator([login_required, investor_required], name='dispatch')
+class AddInvestmentView(View):
+    template_name = 'investments/add_investment.html'
+
+    def get(self, request):
+        form = InvestmentAddForm()
+        return render(request, self.template_name, {
+            "form": form
+        })
+
+    def post(self, request):
+        form = InvestmentAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            investment = form.save(commit=False)
+            investment.investor = get_object_or_404(InvestorUser, id = request.user.investoruser.id)
+            investment.save()
+            return redirect('investments:my_investments')
+        return render(request,self.template_name,{"form":form})

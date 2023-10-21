@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    <div class="w-50 mx-auto">
+        <h4>Are you sure you want to delete {{ investment }}?</h4>
+        <h5>{{ investment.get_apartments_count }} apartments will be deleted.</h5>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+    </div>
+
+{% endblock %}
