@@ -101,6 +101,6 @@ class Apartment(models.Model):
 
 class ApartmentImage(models.Model):
     image = models.ImageField(upload_to='images/apartments')
-    caption = models.CharField(max_length=60)
+    caption = models.CharField(max_length=60, null=True, blank=True)
     apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE, related_name='images')
 # Create your models here.

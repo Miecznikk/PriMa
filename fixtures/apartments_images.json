@@ -142,5 +142,77 @@
       "caption": "image",
       "apartment": 6
     }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 17,
+    "fields": {
+      "image": "/images/apartments/5.jpg",
+      "caption": "image",
+      "apartment": 7
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 18,
+    "fields": {
+      "image": "/images/apartments/3.jpg",
+      "caption": "image",
+      "apartment": 7
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 17,
+    "fields": {
+      "image": "/images/apartments/5.jpg",
+      "caption": "image",
+      "apartment": 7
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 18,
+    "fields": {
+      "image": "/images/apartments/3.jpg",
+      "caption": "image",
+      "apartment": 7
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 19,
+    "fields": {
+      "image": "/images/apartments/2.jpg",
+      "caption": "image",
+      "apartment": 8
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 20,
+    "fields": {
+      "image": "/images/apartments/3.jpg",
+      "caption": "image",
+      "apartment": 8
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 21,
+    "fields": {
+      "image": "/images/apartments/3.jpg",
+      "caption": "image",
+      "apartment": 9
+    }
+  },
+  {
+    "model": "Investments.apartmentimage",
+    "pk": 22,
+    "fields": {
+      "image": "/images/apartments/3.jpg",
+      "caption": "image",
+      "apartment": 9
+    }
   }
 ]

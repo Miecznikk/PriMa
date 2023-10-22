@@ -3,7 +3,7 @@
     <div class="container mb-4">
         <h1 class="mt-5">Apartments in {{ investment }}</h1>
         <form method="post" action="{% url 'investments:mass_delete_apartments' %}" onsubmit="return confirm('Are you sure you want to delete selected apartments?');">
-        <a class="btn btn-success" href="">Add apartment</a>
+        <a class="btn btn-success" href="{% url 'investments:add_apartment' investment.id %}">Add apartment</a>
         <button type="submit" class="btn btn-danger">Mass Delete</button>
         <a id="select_all" class="btn btn-outline-info">Select all</a>
         <a id="deselect_all" class="btn btn-outline-info">Deselect all</a>
@@ -23,7 +23,7 @@
                                 <p><strong>Additional Info: </strong>{{ apartment.get_additional_info_string }}</p>
                             </div>
                             <div class="col-md-2 d-flex justify-content-end align-items-center">
-                                <a href="#" class="btn btn-info me-2">
+                                <a href="{% url 'investments:edit_apartment' apartment.id %}" class="btn btn-info me-2">
                                     Edit
                                 </a>
                                 <a href="{% url 'investments:apartment_detail' apartment.id %}" class="btn btn-primary">

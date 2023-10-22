@@ -3,7 +3,7 @@
     "model": "Investments.apartment",
     "pk": 1,
     "fields": {
-      "building_number": 60,
+      "building_number": 4,
       "apartment_number": 1,
       "area": 32,
       "rooms": 1,
@@ -22,7 +22,7 @@
     "model": "Investments.apartment",
     "pk": 2,
     "fields": {
-      "building_number": 60,
+      "building_number": 4,
       "apartment_number": 2,
       "area": 45,
       "rooms": 2,
@@ -41,8 +41,8 @@
     "model": "Investments.apartment",
     "pk": 3,
     "fields": {
-      "building_number": 60,
-      "apartment_number": 3,
+      "building_number": 6,
+      "apartment_number": 1,
       "area": 76,
       "rooms": 3,
       "investment": 1,
@@ -60,11 +60,11 @@
     "model": "Investments.apartment",
     "pk": 4,
     "fields": {
-      "building_number": 34,
+      "building_number": 6,
       "apartment_number": 1,
-      "area": 32,
+      "area": 35,
       "rooms": 1,
-      "investment": 2,
+      "investment": 1,
       "floor": 0,
       "has_balcony": false,
       "has_garden": true,
@@ -79,11 +79,11 @@
     "model": "Investments.apartment",
     "pk": 5,
     "fields": {
-      "building_number": 34,
+      "building_number": 6,
       "apartment_number": 2,
-      "area": 45,
+      "area": 48,
       "rooms": 2,
-      "investment": 2,
+      "investment": 1,
       "floor": 1,
       "has_balcony": true,
       "has_garden": false,
@@ -98,11 +98,11 @@
     "model": "Investments.apartment",
     "pk": 6,
     "fields": {
-      "building_number": 34,
+      "building_number": 6,
       "apartment_number": 3,
-      "area": 60,
+      "area": 78,
       "rooms": 3,
-      "investment": 2,
+      "investment": 1,
       "floor": 1,
       "has_balcony": true,
       "has_garden": false,
@@ -111,6 +111,63 @@
       "has_AC": false,
       "two_floor_apartment": true,
       "price": 810000
+    }
+  },
+  {
+    "model": "Investments.apartment",
+    "pk": 7,
+    "fields": {
+      "building_number": "3a",
+      "apartment_number": 1,
+      "area": 50,
+      "rooms": 3,
+      "investment": 2,
+      "floor": 1,
+      "has_balcony": true,
+      "has_garden": false,
+      "has_basement": true,
+      "has_garage": false,
+      "has_AC": false,
+      "two_floor_apartment": false,
+      "price": 300000
+    }
+  },
+  {
+    "model": "Investments.apartment",
+    "pk": 8,
+    "fields": {
+      "building_number": "3a",
+      "apartment_number": 2,
+      "area": 40,
+      "rooms": 3,
+      "investment": 2,
+      "floor": 1,
+      "has_balcony": true,
+      "has_garden": false,
+      "has_basement": true,
+      "has_garage": false,
+      "has_AC": false,
+      "two_floor_apartment": false,
+      "price": 230000
+    }
+  },
+  {
+    "model": "Investments.apartment",
+    "pk": 9,
+    "fields": {
+      "building_number": "1a",
+      "apartment_number": 1,
+      "area": 30,
+      "rooms": 5,
+      "investment": 3,
+      "floor": 1,
+      "has_balcony": true,
+      "has_garden": false,
+      "has_basement": true,
+      "has_garage": false,
+      "has_AC": false,
+      "two_floor_apartment": false,
+      "price": 64110
     }
   }
 ]

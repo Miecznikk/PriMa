@@ -1,3 +1,4 @@
+from django.forms import modelformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.utils.decorators import method_decorator
@@ -5,8 +6,8 @@ from django.contrib.auth.decorators import login_required
 
 from Users.models import InvestorUser
 from .decorators import investor_required
-from Investments.models import Investment, Apartment
-from .forms import ApartmentSearchForm, InvestmentDeletionForm, InvestmentAddForm
+from Investments.models import Investment, Apartment, ApartmentImage
+from .forms import ApartmentSearchForm, InvestmentDeletionForm, InvestmentAddForm, ApartmentAddForm, ApartmentImageForm
 
 
 class AllInvestments(View):
@@ -175,3 +176,110 @@ class MassDeleteApartmentsView(View):
         apartments = Apartment.objects.filter(id__in=request.POST.getlist('apartment_ids'))
         apartments.delete()
         return redirect('investments:my_investments')
+
+
+@method_decorator([login_required, investor_required], name='dispatch')
+class AddApartmentView(View):
+    template_name = 'investments/add_apartment.html'
+
+    def get(self, request, investment):
+        apartment_form = ApartmentAddForm()
+        apartment_images_form = ApartmentImageForm()
+        apartment_images_form.fields['images'].widget.attrs['class'] = 'form-control mb-4'
+
+        return render(request, self.template_name, {
+            "apartment_form": apartment_form,
+            "apartment_images_form": apartment_images_form
+        })
+
+    def post(self, request, investment):
+        apartment_form = ApartmentAddForm(request.POST)
+        apartment_images_form = ApartmentImageForm(request.POST, request.FILES)
+        apartment_images_form.fields['images'].widget.attrs['class'] = 'form-control mb-4'
+        investment = get_object_or_404(Investment, id=investment, investor=request.user.investoruser)
+
+        if apartment_form.is_valid():
+            apartment = apartment_form.save(commit=False)
+            apartment.investment = investment
+            apartment.save()
+            for image in request.FILES.getlist('images'):
+                ApartmentImage.objects.create(image=image, apartment=apartment)
+            return redirect('investments:my_apartments', investment=investment.id)
+
+        return render(request, self.template_name, {
+            "apartment_form": apartment_form,
+            "apartment_images_form": apartment_images_form
+        })
+
+
+@method_decorator([login_required, investor_required], name='dispatch')
+class EditApartmentView(View):
+    template_name = 'investments/apartment_edit.html'
+
+    def get(self, request, apartment):
+        editing_apartment = get_object_or_404(Apartment, id=apartment, investment__investor=request.user.investoruser)
+        initial_values = {
+            "building_number": editing_apartment.building_number,
+            "apartment_number": editing_apartment.apartment_number,
+            "area": editing_apartment.area,
+            "rooms": editing_apartment.rooms,
+            "price": editing_apartment.price,
+            "floor": editing_apartment.floor,
+            "has_balcony": editing_apartment.has_balcony,
+            "has_garden": editing_apartment.has_garden,
+            "has_garage": editing_apartment.has_garage,
+            "has_basement": editing_apartment.has_basement,
+            "has_AC": editing_apartment.has_AC,
+            "two_floor_apartment": editing_apartment.two_floor_apartment
+        }
+        apartment_form = ApartmentAddForm(initial=initial_values)
+        return render(request, self.template_name, {
+            "apartment_form": apartment_form,
+            "apartment": editing_apartment
+        })
+
+    def post(self, request, apartment):
+        apartment_obj = get_object_or_404(Apartment, id=apartment, investment__investor=request.user.investoruser)
+        apartment_form = ApartmentAddForm(request.POST, instance=apartment_obj)
+        if apartment_form.is_valid():
+            apartment_form.save()
+            return redirect('investments:my_apartments', apartment_obj.investment.id)
+        return render(request, self.template_name, {
+            "apartment_form": apartment_form,
+            "apartment": apartment_obj
+        })
+
+
+@method_decorator([login_required, investor_required], name='dispatch')
+class EditApartmentImages(View):
+    template_name = 'investments/edit_apartment_images.html'
+
+    def get(self, request, apartment):
+        apartment = get_object_or_404(Apartment, id=apartment, investment__investor=request.user.investoruser)
+        apartment_images = ApartmentImage.objects.filter(apartment=apartment)
+        apartment_images_form = ApartmentImageForm()
+        apartment_images_form.fields['images'].widget.attrs['class'] = 'form-control mb-4'
+        return render(request, self.template_name, {
+            "apartment": apartment,
+            "apartment_images": apartment_images,
+            "apartment_images_form": apartment_images_form
+        })
+
+    def post(self, request, apartment):
+        apartment = get_object_or_404(Apartment, id=apartment, investment__investor=request.user.investoruser)
+        apartment_images = ApartmentImage.objects.filter(apartment=apartment)
+        apartment_images_form = ApartmentImageForm(request.POST, request.FILES)
+        apartment_images_form.fields['images'].widget.attrs['class'] = 'form-control mb-4'
+        print(request.FILES)
+        for image in request.FILES.getlist('images'):
+            ApartmentImage.objects.create(image=image, apartment=apartment)
+        return redirect('investments:edit_apartment_images', apartment.id)
+
+
+class DeleteApartmentImage(View):
+
+    def post(self, request, apartment, image):
+        deletion_image = get_object_or_404(ApartmentImage, id=image,
+                                           apartment__investment__investor=request.user.investoruser)
+        deletion_image.delete()
+        return redirect('investments:edit_apartment_images', apartment=apartment)

@@ -1,7 +1,7 @@
 from django import forms
 from django.core.validators import MinValueValidator, MaxValueValidator
-
-from Investments.models import Investment
+from multiupload.fields import MultiFileField, MultiImageField
+from Investments.models import Investment, Apartment, ApartmentImage
 
 
 class ApartmentSearchForm(forms.Form):
@@ -70,4 +70,14 @@ class InvestmentDeletionForm(forms.Form):
 class InvestmentAddForm(forms.ModelForm):
     class Meta:
         model = Investment
-        exclude = ('resized_image','investor')
+        exclude = ('resized_image', 'investor')
+
+
+class ApartmentAddForm(forms.ModelForm):
+    class Meta:
+        model = Apartment
+        exclude = ('investment',)
+
+
+class ApartmentImageForm(forms.Form):
+    images = MultiImageField(min_num=1, max_num=10)

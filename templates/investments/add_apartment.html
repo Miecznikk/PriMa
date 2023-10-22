@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% load crispy_forms_tags %}
+        {{ apartment_form|crispy }}
+        <label for="id_images" class="form-label">Images</label>
+        {{ apartment_images_form.images }}
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>
+{% endblock %}

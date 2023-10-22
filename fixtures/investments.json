@@ -3,10 +3,10 @@
     "model": "Investments.investment",
     "pk": 1,
     "fields": {
-      "name": "Inwestycja Kołłątaja",
-      "image": "images/investments/inv1.jpg",
-      "street": "Kołłątaja",
-      "city": "Białystok",
+      "name": "Domki w sejmie",
+      "image": "images/investments/Sejm_RP.jpg",
+      "street": "Wiejska",
+      "city": "Warszawa",
       "investor": 1
     }
   },
@@ -14,9 +14,9 @@
     "model": "Investments.investment",
     "pk": 2,
     "fields": {
-      "name": "Inwestycja Sienkiewicza",
-      "image": "images/investments/inv4.jpg",
-      "street": "Sienkiewicza",
+      "name": "Białostockie Slumsy",
+      "image": "images/investments/slums.jpg",
+      "street": "Św. Proroka Eliasza",
       "city": "Białystok",
       "investor": 1
     }
@@ -25,44 +25,11 @@
     "model": "Investments.investment",
     "pk": 3,
     "fields": {
-      "name": "Inwestycja Sienkiewicza",
-      "image": "images/investments/inv3.jpg",
-      "street": "Sienkiewicza",
-      "city": "Białystok",
-      "investor": 1
-    }
-  },
-  {
-    "model": "Investments.investment",
-    "pk": 4,
-    "fields": {
-      "name": "Inwestycja Sienkiewicza",
-      "image": "images/investments/inv1.jpg",
-      "street": "Sienkiewicza",
-      "city": "Białystok",
-      "investor": 1
-    }
-  },
-  {
-    "model": "Investments.investment",
-    "pk": 5,
-    "fields": {
-      "name": "Inwestycja Sienkiewicza",
-      "image": "images/investments/inv2.jpg",
-      "street": "Sienkiewicza",
-      "city": "Białystok",
-      "investor": 1
-    }
-  },
-  {
-    "model": "Investments.investment",
-    "pk": 6,
-    "fields": {
-      "name": "Inwestycja Sienkiewicza",
-      "image": "images/investments/inv4.jpg",
-      "street": "Sienkiewicza",
-      "city": "Białystok",
-      "investor": 1
+      "name": "Dom Team X",
+      "image": "images/investments/teamx.jpg",
+      "street": "Łąkowa",
+      "city": "Chylice",
+      "investor": 2
     }
   }
 ]

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Edit Apartment Images</h2>
+  <p>Apartment: {{ apartment }}</p>
+
+  <div class="row">
+    {% for image in apartment_images %}
+      <div class="col-md-3 mb-3">
+        <form method="post" action="{% url 'investments:delete_apartment_image' apartment.id image.id %}">
+          {% csrf_token %}
+          <div class="card position-relative" style="width: 100%;">
+            <img src="{{ image.image.url }}" class="card-img-top img-fluid" alt="Apartment Image" style="height: 200px;">
+            <button type="submit" class="btn btn-danger btn-circle position-absolute top-0 end-0" style="border-radius: 50%; margin: -15px;">
+              <span>X</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    {% endfor %}
+  <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="images">Add images</label>
+      {{ apartment_images_form.images }}
+      <button type="submit" class="btn btn-success">Add</button>
+  </form>
+  </div>
+{% endblock %}

@@ -49,8 +49,8 @@
         "fields": {
             "username": "investorno1",
             "password": "pbkdf2_sha256$390000$SggqRFTQhFXDuC4e2YCkhB$VnNn8LFLADpyRLaCdFwJXwc2iP+X20yFvundfwMr8Ho=",
-            "first_name": "Szymon",
-            "last_name": "Marciniak",
+            "first_name": "Mateusz",
+            "last_name": "Morawiecki",
             "email": "mi3cznikk@gmail.com"
         }
     },
@@ -60,8 +60,8 @@
         "fields": {
             "username": "investorno2",
             "password": "pbkdf2_sha256$390000$SggqRFTQhFXDuC4e2YCkhB$VnNn8LFLADpyRLaCdFwJXwc2iP+X20yFvundfwMr8Ho=",
-            "first_name": "John",
-            "last_name": "Depp",
+            "first_name": "Stuart",
+            "last_name": "Burton",
             "email": "mi3cznikk@gmail.com"
         }
     },

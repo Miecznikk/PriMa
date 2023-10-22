@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load crispy_forms_tags %}
+    <form method="post">
+        {% csrf_token %}
+        {{ apartment_form|crispy }}
+    <button class="btn btn-success" type="submit">Save</button>
+    <a class="btn btn-outline-info" href="{% url 'investments:edit_apartment_images' apartment.id %}">Edit Images</a>
+    </form>
+{% endblock %}
