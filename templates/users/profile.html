@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>{{ investor }} Profile</h1>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h2>Company Card</h2>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="text-center">
+                  <img src="{{ investor.company_logo.url }}" alt="{{ investor.company_name }} Logo" class="img-thumbnail" width="150">
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="mt-3">
+                  <h4>Company Name:</h4>
+                  <p>{{ investor.company_name }}</p>
+                </div>
+                <div class="mt-3">
+                  <h4>Contact Person:</h4>
+                  <p>{{ investor.user.first_name }} {{ investor.user.last_name }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h2>Contact Information</h2>
+      <ul>
+        <li><strong>Phone Number:</strong> {{ investor.phone_number }}</li>
+        <li><strong>Email:</strong> {{ investor.user.email }}</li>
+        <li><strong>Address:</strong> N/A</li>
+      </ul>
+    </div>
+  </div>
+    <div class="mt-4">
+        {% if user.investoruser == investor %}
+            <a class="btn btn-outline-info" href="{% url 'users:profile_edit' investor.id %}">Edit Profile</a>
+        {% else %}
+            <a class="btn btn-outline-success" href="{% url 'messages:send_message' %}?default_receiver={{ investor.user.id }}">Send Message</a>
+            <a class="btn btn-outline-primary" href="{% url 'investments:all_investments' %}">Check Investments</a>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -267,15 +267,14 @@ class EditApartmentImages(View):
 
     def post(self, request, apartment):
         apartment = get_object_or_404(Apartment, id=apartment, investment__investor=request.user.investoruser)
-        apartment_images = ApartmentImage.objects.filter(apartment=apartment)
         apartment_images_form = ApartmentImageForm(request.POST, request.FILES)
         apartment_images_form.fields['images'].widget.attrs['class'] = 'form-control mb-4'
-        print(request.FILES)
         for image in request.FILES.getlist('images'):
             ApartmentImage.objects.create(image=image, apartment=apartment)
         return redirect('investments:edit_apartment_images', apartment.id)
 
 
+@method_decorator([login_required, investor_required], name='dispatch')
 class DeleteApartmentImage(View):
 
     def post(self, request, apartment, image):
@@ -283,3 +282,33 @@ class DeleteApartmentImage(View):
                                            apartment__investment__investor=request.user.investoruser)
         deletion_image.delete()
         return redirect('investments:edit_apartment_images', apartment=apartment)
+
+
+@method_decorator([login_required, investor_required], name='dispatch')
+class EditInvestmentView(View):
+    template_name = 'investments/edit_investment.html'
+
+    def get(self, request, id):
+        investment = get_object_or_404(Investment, id=id, investor=request.user.investoruser)
+        initial_data = {
+            "name": investment.name,
+            "image": investment.image,
+            "street": investment.street,
+            "city": investment.city
+        }
+        form = InvestmentAddForm(initial=initial_data, instance=investment)
+        return render(request, self.template_name, {
+            "investment": investment,
+            "form": form
+        })
+
+    def post(self, request, id):
+        investment = get_object_or_404(Investment, id=id, investor=request.user.investoruser)
+        form = InvestmentAddForm(request.POST, request.FILES, instance=investment)
+        if form.is_valid():
+            investment = form.save()
+            return redirect('investments:my_investments')
+        return render(request, self.template_name, {
+            "investment": investment,
+            "form": form
+        })

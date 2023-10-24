@@ -1,8 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% for message in messages %}
-        <h2>{{ message.title }}</h2>
-        <p> {{ message.description }}</p>
-    {% endfor %}
-    <a class="btn btn-outline-primary" href="{% url 'messages:send_message' %}">Send Message</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Messages</h2>
+                {% for message in messages %}
+                    <div class="message card">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="card-body">
+                                    <div class="message-info">
+                                        <p class="message-created">{{ message.created }}</p>
+                                        <p class="message-sender">{{ message.sender }}</p>
+                                    </div>
+                                    <h3 class="message-title">{{ message.title }}</h3>
+                                    <p class="message-description">{{ message.description }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="card-body text-right d-flex justify-content-around">
+                                    <form method="post" action="{% url 'messages:delete_message' message.id %}" onsubmit="return confirm('Are you sure you want to delete this message?')">
+                                        {% csrf_token %}
+                                        <a href="{% url 'messages:send_message' %}?default_receiver={{ message.sender.id }}" class="btn btn-primary">Reply</a>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <h2>No messages found.</h2>
+                {% endfor %}
+                <a class="btn btn-outline-primary" href="{% url 'messages:send_message' %}">Send Message</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

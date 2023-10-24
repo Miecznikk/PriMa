@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data" class="w-50 mx-auto">
+        {% csrf_token %}
+        {% load crispy_forms_tags %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Save</button>
+    </form>
+{% endblock %}

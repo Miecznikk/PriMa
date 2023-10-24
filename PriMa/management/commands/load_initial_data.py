@@ -11,7 +11,8 @@ class Command(BaseCommand):
         'investors.json',
         'investments.json',
         'apartments.json',
-        'apartments_images.json'
+        'apartments_images.json',
+        'message_objects.json'
     ]
 
     def handle(self, *args, **options):

@@ -22,8 +22,11 @@
               <a href="{% url 'investments:delete_investment' investment.id %}" class="btn btn-danger me-2">
                 Delete
                 </a>
-              <a href="{% url 'investments:my_apartments' investment.id %}" class="btn btn-primary">
+              <a href="{% url 'investments:my_apartments' investment.id %}" class="btn btn-primary me-2">
                 Inspect
+              </a>
+                <a href="{% url 'investments:edit_investment' investment.id %}" class="btn btn-outline-info">
+                Edit
               </a>
             </div>
           </div>

@@ -81,3 +81,5 @@ class ApartmentAddForm(forms.ModelForm):
 
 class ApartmentImageForm(forms.Form):
     images = MultiImageField(min_num=1, max_num=10)
+
+

@@ -18,7 +18,9 @@
                 <p><strong>Number of apartments: </strong>{{ investment.get_apartments_count }}</p>
                 <p><strong>Apartments area range: </strong>{{ investment.get_area_range }}m&sup2</p>
                 <p><strong>Apartments price range: </strong>{{ investment.get_price_range }}zł</p>
-                <p><strong>Investor: </strong>{{ investment.investor }}</p>
+                <p><strong>Investor: </strong>{{ investment.investor }}
+                   {% if request.user != investment.investor.user %} | <a href="{% url 'messages:send_message' %}?default_receiver={{ investment.investor.user.id }}" class="primary-link">Message</a> {% endif %}
+                </p>
             </div>
             <div class="col-md-2 d-flex justify-content-end align-items-center">
               <a href="{% url 'investments:investment_detail' investment.id %}" class="btn btn-primary">

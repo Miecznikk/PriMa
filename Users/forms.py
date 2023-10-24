@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.db import transaction
 from captcha.fields import ReCaptchaField
-from .models import CustomerUser
+from .models import CustomerUser, InvestorUser
 
 
 class RegisterForm(UserCreationForm):
@@ -41,3 +41,10 @@ class RegisterForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(label="Username")
     password = forms.CharField(label="Password", widget=forms.PasswordInput())
+
+
+class ProfileEditForm(forms.ModelForm):
+    email = forms.EmailField()
+    class Meta:
+        model = InvestorUser
+        exclude = ('user',)
