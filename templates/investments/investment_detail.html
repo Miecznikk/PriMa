@@ -7,7 +7,7 @@
                 {% for apartment in apartments %}
                     <li class="list-group-item">
                         <div class="row position-relative">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <img src="{{ apartment.images.first.image.url }}" alt="{{ apartment.name }}" class="img-thumbnail">
                             </div>
                             <div class="col-md-6">
@@ -27,7 +27,5 @@
                     <p class="mt-3">No apartments found.</p>
                 {% endfor %}
             </ul>
-
-        </form>
     </div>
 {% endblock %}

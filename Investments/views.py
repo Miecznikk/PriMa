@@ -11,11 +11,19 @@ from .forms import ApartmentSearchForm, InvestmentDeletionForm, InvestmentAddFor
 
 
 class AllInvestments(View):
-    template_name = 'investments/all_investments.html'
+    template_name = 'investments/investments_list.html'
 
     def get(self, request):
-        investments = Investment.objects.all()
-        return render(request, self.template_name, {'investments': investments})
+        if request.GET.get("investor"):
+            investments = Investment.objects.filter(investor__id=request.GET.get("investor"))
+            investor = InvestorUser.objects.get(id=request.GET.get("investor"))
+        else:
+            investments = Investment.objects.all()
+            investor = None
+        return render(request, self.template_name, {
+            'investments': investments,
+            "investor": investor
+        })
 
 
 class InvestmentDetail(View):
@@ -36,8 +44,10 @@ class ApartmentDetail(View):
 
     def get(self, request, id):
         apartment = get_object_or_404(Apartment, id=id)
+        investor = InvestorUser.objects.get(id=apartment.investment.investor.id)
         return render(request, self.template_name, {
-            "apartment": apartment
+            "apartment": apartment,
+            "investor": investor
         })
 
 

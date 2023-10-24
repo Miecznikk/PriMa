@@ -18,12 +18,36 @@
         <div class="col-md-4">
           <div class="card mb-4">
             <img src="{{ image.image.url }}" alt="{{ image.caption }}" class="card-img-top">
-            <div class="card-body">
-              <p class="card-text">{{ image.caption }}</p>
-            </div>
           </div>
         </div>
       {% endfor %}
     </div>
+    <div class="mt-2 col-md-6">
+        <h4>Contact</h4>
+        <p><strong>Investor: </strong><a href="{% url 'users:profile' investor.id %}" class="primary-link">{{ investor }}</a></p>
+        <p><strong>Email: </strong>{{ investor.user.email }}</p>
+        <p><strong>Phone number: </strong><span id="phoneNumber">*********</span><span id="showNumber" class="text-primary" style="cursor: pointer;"> Show</span></p>
+        <a href="{% url 'messages:send_message' %}?default_receiver={{ investor.user.id }}" class="btn btn-outline-primary">Send Message</a>
+    </div>
   </div>
+
+    <script>
+        let phoneNumber = {{ investor.phone_number }};
+        const phoneNumberObj = {
+            true: phoneNumber.toString(),
+            false: "*********"
+        }
+        const showButtonObj = {
+            true: " Hide",
+            false: " Show"
+        }
+        let visible = false;
+        const numberSpan = document.getElementById("phoneNumber");
+        const showNumberSpan = document.getElementById("showNumber")
+        showNumberSpan.addEventListener('click', () => {
+            visible = !visible;
+            numberSpan.innerHTML = phoneNumberObj[visible];
+            showNumberSpan.innerHTML = showButtonObj[visible];
+        })
+    </script>
 {% endblock %}

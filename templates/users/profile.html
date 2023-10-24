@@ -47,7 +47,7 @@
             <a class="btn btn-outline-info" href="{% url 'users:profile_edit' investor.id %}">Edit Profile</a>
         {% else %}
             <a class="btn btn-outline-success" href="{% url 'messages:send_message' %}?default_receiver={{ investor.user.id }}">Send Message</a>
-            <a class="btn btn-outline-primary" href="{% url 'investments:all_investments' %}">Check Investments</a>
+            <a class="btn btn-outline-primary" href="{% url 'investments:investment_list' %}?investor={{ investor.id }}">Check Investments</a>
         {% endif %}
     </div>
 {% endblock %}

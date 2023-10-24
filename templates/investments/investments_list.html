@@ -4,7 +4,11 @@
 {% endblock %}
 {% block content %}
  <div class="container mb-4">
-    <h1 class="mt-5">All Investments</h1>
+     {% if not investor %}
+        <h1 class="mt-5">All Investments</h1>
+     {% else %}
+        <h1 class="mt-5">{{ investor }}'s Investments</h1>
+     {% endif %}
     <ul class="list-group mt-4">
       {% for investment in investments %}
         <li class="list-group-item">
@@ -19,7 +23,10 @@
                 <p><strong>Apartments area range: </strong>{{ investment.get_area_range }}m&sup2</p>
                 <p><strong>Apartments price range: </strong>{{ investment.get_price_range }}zł</p>
                 <p><strong>Investor: </strong>{{ investment.investor }}
-                   {% if request.user != investment.investor.user %} | <a href="{% url 'messages:send_message' %}?default_receiver={{ investment.investor.user.id }}" class="primary-link">Message</a> {% endif %}
+                   {% if request.user != investment.investor.user %}
+                       | <a href="{% url 'messages:send_message' %}?default_receiver={{ investment.investor.user.id }}" class="primary-link">Message</a>
+                       | <a href="{% url 'users:profile' investment.investor.id %}" class="primary-link">Profile</a>
+                   {% endif %}
                 </p>
             </div>
             <div class="col-md-2 d-flex justify-content-end align-items-center">
