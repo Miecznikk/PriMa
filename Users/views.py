@@ -9,6 +9,7 @@ from EmailService.token import account_activation_token
 from django.views import View
 from .models import InvestorUser
 from .forms import RegisterForm, ProfileEditForm
+import threading
 
 
 class SignUp(View):
@@ -24,7 +25,8 @@ class SignUp(View):
             user = form.save()
             user.is_active = False
             user.save()
-            EmailService.send_confirmation_mail_to_user(request, user, form.cleaned_data.get('email'))
+            threading.Thread(target=EmailService.send_confirmation_mail_to_user,
+                             args=(request, user, form.cleaned_data.get('email'))).start()
             return HttpResponse("Check your mail to activate the account")
 
 

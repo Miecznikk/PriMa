@@ -6,8 +6,8 @@
         <form method="post" class="w-50 mx-auto d-block mt-5 text-center">
             {% csrf_token %}
             {{ form|crispy }}
-            <button type="submit" class="btn btn-primary">Search</button>
-            <a href="" class="btn {% if user.is_authenticated %}btn-success{% else %}btn-outline-success disabled{% endif %}">{% if user.is_authenticated %}Save{% else %}Sign in to save{% endif %}</a>
+            <button type="submit" name="search" value="search" class="btn btn-primary">Search</button>
+            <button type="submit" name="save" value="save" class="btn {% if user.is_authenticated %}btn-success{% else %}btn-outline-success disabled{% endif %}">{% if user.is_authenticated %}Save{% else %}Sign in to save{% endif %}</button>
         </form>
     </div>
 {% endblock %}

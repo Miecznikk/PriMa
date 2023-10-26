@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Investment, Apartment, ApartmentImage
+from .models import Investment, Apartment, ApartmentImage, ApartmentSearchResult
 
 
 @admin.register(Investment)
@@ -15,4 +15,10 @@ class ApartmentAdmin(admin.ModelAdmin):
 @admin.register(ApartmentImage)
 class ApartmentImageAdmin(admin.ModelAdmin):
     list_display = ['image', 'caption', 'apartment']
+
+
 # Register your models here.
+
+@admin.register(ApartmentSearchResult)
+class ApartmentSearchResultAdmin(admin.ModelAdmin):
+    list_display = ['user', ]

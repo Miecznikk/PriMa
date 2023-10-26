@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 from Users.models import InvestorUser
 from .decorators import investor_required
-from Investments.models import Investment, Apartment, ApartmentImage
+from Investments.models import Investment, Apartment, ApartmentImage, ApartmentSearchResult
 from .forms import ApartmentSearchForm, InvestmentDeletionForm, InvestmentAddForm, ApartmentAddForm, ApartmentImageForm
 
 
@@ -79,30 +79,50 @@ class TmpSearchView(View):
             min_rooms = cd.get("min_rooms") if cd.get("min_rooms") else 1
             max_rooms = cd.get("max_rooms") if cd.get("max_rooms") else 10
 
-            apartments = apartments.filter(area__gte=min_area, area__lte=max_area,
-                                           price__gte=min_price, price__lte=max_price,
-                                           floor__gte=min_floor, floor__lte=max_floor,
-                                           rooms__gte=min_rooms, rooms__lte=max_rooms)
-
             has_balcony = cd.get("has_balcony") if cd.get("has_balcony") != '' else None
             has_garden = cd.get("has_garden") if cd.get("has_garden") != '' else None
             has_garage = cd.get("has_garage") if cd.get("has_garage") != '' else None
             has_AC = cd.get("has_AC") if cd.get("has_AC") != '' else None
+            has_basement = cd.get("has_basement") if cd.get("has_basement") != '' else None
             has_two_floors = cd.get("two_floor_apartment") if cd.get("two_floor_apartment") != '' else None
 
-            if has_balcony is not None:
-                apartments = apartments.filter(has_balcony=has_balcony)
-            if has_garden is not None:
-                apartments = apartments.filter(has_garden=has_garden)
-            if has_garage is not None:
-                apartments = apartments.filter(has_garage=has_garage)
-            if has_AC is not None:
-                apartments = apartments.filter(has_AC=has_AC)
-            if has_two_floors is not None:
-                apartments = apartments.filter(two_floor_apartment=has_two_floors)
+            if request.POST.get("search"):
+                apartments = apartments.filter(area__gte=min_area, area__lte=max_area,
+                                               price__gte=min_price, price__lte=max_price,
+                                               floor__gte=min_floor, floor__lte=max_floor,
+                                               rooms__gte=min_rooms, rooms__lte=max_rooms)
+                if has_balcony is not None:
+                    apartments = apartments.filter(has_balcony=has_balcony)
+                if has_garden is not None:
+                    apartments = apartments.filter(has_garden=has_garden)
+                if has_garage is not None:
+                    apartments = apartments.filter(has_garage=has_garage)
+                if has_AC is not None:
+                    apartments = apartments.filter(has_AC=has_AC)
+                if has_basement is not None:
+                    apartments = apartments.filter(has_basement=has_basement)
+                if has_two_floors is not None:
+                    apartments = apartments.filter(two_floor_apartment=has_two_floors)
+                print(apartments)
 
-            print(apartments)
-
+            elif request.POST.get("save"):
+                ApartmentSearchResult.objects.create(
+                    user=request.user,
+                    min_area=min_area,
+                    max_area=max_area,
+                    min_price=min_price,
+                    max_price=max_price,
+                    min_floor=min_floor,
+                    max_floor=max_floor,
+                    min_rooms=min_rooms,
+                    max_rooms=max_rooms,
+                    has_garage=has_garage,
+                    has_basement=has_basement,
+                    has_garden=has_garden,
+                    has_balcony=has_balcony,
+                    has_two_floors=has_two_floors,
+                    has_AC=has_AC
+                )
             return redirect('/home')
         return render(request, self.template_name, {"form": search_form})
 
@@ -214,6 +234,7 @@ class AddApartmentView(View):
             apartment.save()
             for image in request.FILES.getlist('images'):
                 ApartmentImage.objects.create(image=image, apartment=apartment)
+            ApartmentSearchResult.filter_compatibility(apartment, request)
             return redirect('investments:my_apartments', investment=investment.id)
 
         return render(request, self.template_name, {
@@ -253,6 +274,7 @@ class EditApartmentView(View):
         apartment_form = ApartmentAddForm(request.POST, instance=apartment_obj)
         if apartment_form.is_valid():
             apartment_form.save()
+            ApartmentSearchResult.filter_compatibility(apartment, request)
             return redirect('investments:my_apartments', apartment_obj.investment.id)
         return render(request, self.template_name, {
             "apartment_form": apartment_form,

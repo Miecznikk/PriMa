@@ -1,3 +1,5 @@
+import threading
+
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
@@ -47,7 +49,8 @@ class MessageSendView(View):
             message.sender = request.user
             message.receiver = get_object_or_404(User, id=int(request.GET.get("default_receiver")))
             message.save()
-            EmailService.send_new_message_mail_to_user(request, message.receiver, request.user)
+            threading.Thread(target=EmailService.send_new_message_mail_to_user,
+                             args=(request, message.receiver, request.user)).start()
         else:
             return render(request, self.template_name, {
                 "form": form

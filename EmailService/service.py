@@ -41,3 +41,15 @@ class EmailService:
         }))
         email = EmailMessage(mail_subject, message, to=[user.email])
         email.send()
+
+    @staticmethod
+    def send_apartment_available_email_to_user(request, user, apartment_url):
+        current_site = get_current_site(request)
+        mail_subject = f"New apartment matching your recent search"
+        message = mark_safe(render_to_string("email_templates/apartment_availible.html",{
+            "user": user,
+            "domain": current_site,
+            "apartment_url": apartment_url
+        }))
+        email = EmailMessage(mail_subject,message, to=[user.email])
+        email.send()
