@@ -21,6 +21,7 @@
     <div class="mt-4">
       <h2>Navigation</h2>
       <ul class="list-group">
+        <li class="list-group-item"><a href="{% url 'messages:my_messages' %}">My Messages</a> </li>
         <li class="list-group-item"><a href="{% url 'investments:my_investments' %}">My Investments</a></li>
         <li class="list-group-item"><a href="{% url 'users:profile' investor.id %}">Profile</a></li>
       </ul>

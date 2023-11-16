@@ -25,6 +25,7 @@ urlpatterns = [
     path('', views.Home.as_view(), name='home'),
     path('home/', views.Home.as_view(), name='home'),
     path('investor_panel/', views.InvestorPanelView.as_view(), name='investor_panel'),
+    path('customer_panel', views.CustomerPanelView.as_view(), name='customer_panel'),
     path('', include('django.contrib.auth.urls')),
     path('', include('Users.urls', namespace='users')),
     path('', include('Messages.urls', namespace='messages')),

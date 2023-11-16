@@ -6,7 +6,8 @@
       "user": 5,
       "company_name": "Prawo i Sprawiedliwość",
       "company_logo": "images/users/investors_logos/pis.jpg",
-      "phone_number": "790898514"
+      "phone_number": "790898514",
+      "webpage": "https://www.gov.pl/"
     }
   },
   {
@@ -16,7 +17,8 @@
       "user": 6,
       "company_name": "Team X",
       "company_logo": "images/users/investors_logos/teamx.jpeg",
-      "phone_number": "514386799"
+      "phone_number": "514386799",
+      "webpage": "https://ipn.gov.pl/"
     }
   }
 ]

@@ -17,9 +17,6 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'messages:my_messages' %}">Messages</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'investments:investment_list' %}">Investments</a>
                 </li>
                 <li class="nav-item">
@@ -29,6 +26,10 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'investor_panel' %}">Investor Panel</a>
                 </li>
+                {% elif user.is_authenticated and not user.is_investor %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'customer_panel' %}">Customer Panel</a>
+                    </li>
                 {% endif %}
               </ul>
               <div class="d-flex justify-content-center align-items-center my-auto">

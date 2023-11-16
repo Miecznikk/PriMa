@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for value in saved_search.get_selected_values_list %}
+        <p>{{ value }}</p>
+    {% endfor %}
+{% endblock %}

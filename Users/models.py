@@ -35,6 +35,9 @@ class InvestorUser(models.Model):
     phone_number = models.CharField(max_length=9, validators=[
         RegexValidator(regex=r'^\d{9}$', code="Invalid phone number")
     ], null=False)
+    webpage = models.CharField(max_length=50, validators=[
+        RegexValidator(regex=r'^https:\/\/[www]?.+\..+$', code="Invalid web address")
+    ])
 
     def __str__(self):
         return f"{self.company_name}"

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load crispy_forms_tags %}
+    <div class="container w-50 py-1 mb-2 bg-light">
+        <form method="post" class="w-50 mx-auto d-block mt-5 text-center">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" name="search" value="search" class="btn btn-primary">Search</button>
+            <button type="submit" name="save" value="save" class="btn {% if user.is_authenticated %}btn-success{% else %}btn-outline-success disabled{% endif %}">{% if user.is_authenticated %}Save{% else %}Sign in to save{% endif %}</button>
+        </form>
+    </div>
+    {% if apartments %}
+        <ul class="list-group mt-4">
+        {% for apartment in apartments %}
+            <li class="list-group-item">
+                        <div class="row position-relative">
+                            <div class="col-md-4">
+                                <img src="{{ apartment.images.first.image.url }}" alt="{{ apartment.name }}" class="img-thumbnail">
+                            </div>
+                            <div class="col-md-6">
+                                <h2>{{ apartment.get_full_address }}</h2>
+                                <p><strong>Area: </strong>{{ apartment.area }}m&sup2 | {{ apartment.get_rooms_str }}</p>
+                                <p><strong>Price: </strong>{{ apartment.price }}zł | {{ apartment.get_price_per_square_meter }}zł/m&sup2</p>
+                                <p><strong>Additional Info: </strong>{{ apartment.get_additional_info_string }}</p>
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-end align-items-center">
+                                <a href="{% url 'investments:apartment_detail' apartment.id %}" class="btn btn-primary">
+                                    Inspect
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

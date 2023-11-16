@@ -6,7 +6,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
 from django.db.models import Min, Max, Q
 
-from Messages.models import Message
+from Messages.models import Message, MessageLinkAttachment
 from Users.models import InvestorUser
 from django.core.exceptions import FieldDoesNotExist
 
@@ -168,10 +168,37 @@ class ApartmentSearchResult(models.Model):
             from EmailService.service import EmailService
             for result in search_results:
                 admin_user = User.objects.filter(is_superuser=True).first()
-                Message.objects.create(sender=admin_user, receiver=result.user, title="idk",
-                                       description="jest mieszkanko wariacie")
+                attachment = MessageLinkAttachment.objects.create(link= apartment.get_reversed_url(), link_text="Check")
+                Message.objects.create(sender=admin_user, receiver=result.user, title="New apartment",
+                                       description="New Apartment matching your recent search criteria has been added,"
+                                                   " click on the link below", attachment=attachment)
                 threading.Thread(target=EmailService.send_apartment_available_email_to_user,
                                  args=(request, result.user, apartment.get_reversed_url())).start()
+
+    def __str__(self):
+        return f"Search Result id={self.id}"
+
+    def get_selected_values_list(self):
+        attribute_labels = {
+            'min_area': (self.min_area != 10.0, f"Min area = {self.min_area}m²"),
+            'max_area': (self.max_area != 300.0, f"Max area = {self.max_area}m²"),
+            'min_price': (self.min_price != 1, f"Min price = {self.min_price}zł"),
+            'max_price': (self.max_price != 100_000_000, f"Max price = {self.max_price}zł"),
+            'min_floor': (self.min_floor != 0, f"Min floor = {self.min_floor}"),
+            'max_floor': (self.max_floor != 20, f"Max floor = {self.max_floor}"),
+            'min_rooms': (self.min_rooms != 1, f"Min rooms = {self.min_rooms}"),
+            'max_rooms': (self.max_rooms != 10, f"Max rooms = {self.max_rooms}"),
+            'has_AC': (self.has_AC is not None, "AC" if self.has_AC else "No AC"),
+            'has_garden': (self.has_garden is not None, "Garden" if self.has_garden else "No Garden"),
+            'has_garage': (self.has_garage is not None, "Garage" if self.has_garage else "No Garage"),
+            'has_balcony': (self.has_balcony is not None, "Balcony" if self.has_balcony else "No Balcony"),
+            'has_basement': (self.has_basement is not None, "Basement" if self.has_basement else "No Basement"),
+            'has_two_floors': (
+                self.has_two_floors is not None,
+                "Two floor apartment" if self.has_two_floors else "One floor apartment")
+        }
+
+        return [label for attribute, (condition, label) in attribute_labels.items() if condition]
 
 
 class ApartmentImage(models.Model):

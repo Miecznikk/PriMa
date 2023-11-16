@@ -21,3 +21,11 @@ class InvestorPanelView(View):
         return render(request, self.template_name, {
             "investor": investor
         })
+
+
+@method_decorator([login_required], name='dispatch')
+class CustomerPanelView(View):
+    template_name = 'navigation/customer_panel.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {})

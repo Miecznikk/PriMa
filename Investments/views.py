@@ -52,8 +52,8 @@ class ApartmentDetail(View):
 
 
 # TOUPDATE
-class TmpSearchView(View):
-    template_name = 'investments/search.html'
+class SearchView(View):
+    template_name = 'investments/search/search.html'
 
     def get(self, request):
         search_form = ApartmentSearchForm()
@@ -74,7 +74,7 @@ class TmpSearchView(View):
             max_price = cd.get("max_price") if cd.get("max_price") else 100_000_000
 
             min_floor = cd.get("min_floor") if cd.get("min_floor") else 0
-            max_floor = cd.get("max_floor") if cd.get("max_floor") else 20
+            max_floor = cd.get("max_floor") if cd.get("max_floor") is not None else 20
 
             min_rooms = cd.get("min_rooms") if cd.get("min_rooms") else 1
             max_rooms = cd.get("max_rooms") if cd.get("max_rooms") else 10
@@ -103,7 +103,10 @@ class TmpSearchView(View):
                     apartments = apartments.filter(has_basement=has_basement)
                 if has_two_floors is not None:
                     apartments = apartments.filter(two_floor_apartment=has_two_floors)
-                print(apartments)
+                return render(request, self.template_name, {
+                    "form": search_form,
+                    "apartments": apartments
+                })
 
             elif request.POST.get("save"):
                 ApartmentSearchResult.objects.create(
@@ -123,7 +126,8 @@ class TmpSearchView(View):
                     has_two_floors=has_two_floors,
                     has_AC=has_AC
                 )
-            return redirect('/home')
+                return redirect('/home')
+
         return render(request, self.template_name, {"form": search_form})
 
 
@@ -344,3 +348,39 @@ class EditInvestmentView(View):
             "investment": investment,
             "form": form
         })
+
+
+@method_decorator([login_required], name='dispatch')
+class MySearchResultsView(View):
+    template_name = 'investments/search/saved_search.html'
+
+    def get(self, request):
+        saved_searches = ApartmentSearchResult.objects.filter(user=request.user)
+        return render(request, self.template_name, {
+            "saved_searches": saved_searches
+        })
+
+
+@method_decorator([login_required], name='dispatch')
+class SearchResultDetailView(View):
+    template_name = 'investments/search/saved_search_detail.html'
+
+    def get(self, request, id):
+        saved_search = get_object_or_404(ApartmentSearchResult, id=id, user=request.user)
+        return render(request, self.template_name, {
+            "saved_search": saved_search
+        })
+
+
+@method_decorator([login_required], name='dispatch')
+class DeleteSearchResult(View):
+    redirect_to = 'investments:saved_search'
+
+    def get(self, request, id):
+        saved_search = get_object_or_404(ApartmentSearchResult, id=id, user=request.user)
+        if saved_search:
+            return self.post(request, saved_search)
+
+    def post(self, request, saved_search):
+        saved_search.delete()
+        return redirect(self.redirect_to)
