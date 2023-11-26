@@ -1,5 +1,8 @@
 import logging
 import threading
+
+import googlemaps
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -74,6 +77,9 @@ class Apartment(models.Model):
     has_AC = models.BooleanField(null=False)
     two_floor_apartment = models.BooleanField(null=False)
 
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+
     def __str__(self):
         return f"{self.investment.name}: {self.get_full_address()}"
 
@@ -103,6 +109,17 @@ class Apartment(models.Model):
 
     def get_reversed_url(self):
         return reverse('investments:apartment_detail', args=[str(self.id)])
+
+    def update_apartment_location(self):
+        address_string = (f"{self.investment.street} {self.building_number}, {self.investment.city}, "
+                          f"Polska")
+        gmaps = googlemaps.Client(key=settings.GOOGLE_API_KEY)
+        result = gmaps.geocode(address_string)[0]
+        geometry = result.get('geometry', {})
+        location = geometry.get('location', {})
+        self.latitude = location.get('lat')
+        self.longitude = location.get('lng')
+        self.save()
 
 
 class ApartmentSearchResult(models.Model):

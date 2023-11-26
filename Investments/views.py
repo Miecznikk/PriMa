@@ -43,11 +43,13 @@ class ApartmentDetail(View):
     template_name = 'investments/apartment_detail.html'
 
     def get(self, request, id):
+        from django.conf import settings
         apartment = get_object_or_404(Apartment, id=id)
         investor = InvestorUser.objects.get(id=apartment.investment.investor.id)
         return render(request, self.template_name, {
             "apartment": apartment,
-            "investor": investor
+            "investor": investor,
+            "key": settings.GOOGLE_API_KEY
         })
 
 

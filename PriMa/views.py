@@ -3,6 +3,8 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from Investments.decorators import investor_required
+import googlemaps
+from django.conf import settings
 
 
 class Home(View):
@@ -29,3 +31,4 @@ class CustomerPanelView(View):
 
     def get(self, request):
         return render(request, self.template_name, {})
+

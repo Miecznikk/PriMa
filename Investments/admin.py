@@ -9,7 +9,7 @@ class InvestmentAdmin(admin.ModelAdmin):
 
 @admin.register(Apartment)
 class ApartmentAdmin(admin.ModelAdmin):
-    list_display = ['building_number', 'apartment_number', 'area', 'rooms']
+    list_display = ['building_number', 'apartment_number', 'area', 'rooms', 'latitude', 'longitude']
 
 
 @admin.register(ApartmentImage)

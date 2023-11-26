@@ -51,6 +51,10 @@ INSTALLED_APPS = [
     'Investments',
 ]
 
+
+GOOGLE_API_KEY = os.environ.get('AAA_MAPS_API')
+
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

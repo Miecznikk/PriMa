@@ -2,6 +2,7 @@
 
 {% block content %}
   <div class="container">
+    <div id="map" style="height: 300px; width: 1000px"></div>
     <h1>Apartment Detail</h1>
     <div class="card mb-4">
       <div class="card-body">
@@ -49,5 +50,21 @@
             numberSpan.innerHTML = phoneNumberObj[visible];
             showNumberSpan.innerHTML = showButtonObj[visible];
         })
+
+        function initMap(){
+            var apartmentLocation = {lat: {{apartment.latitude}}, lng: {{apartment.longitude}}}
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 14,
+                center: apartmentLocation
+            });
+
+            var marker = new google.maps.Marker({
+                position: apartmentLocation,
+                map: map,
+                title: '{{ apartment }}'
+            })
+        }
+
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ key }}&callback=initMap" defer async></script>
 {% endblock %}
