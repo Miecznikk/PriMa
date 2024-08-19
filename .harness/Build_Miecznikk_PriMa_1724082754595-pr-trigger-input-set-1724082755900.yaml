@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_Miecznikk_PriMa_1724082754595-pr-trigger-input-set
+  identifier: Build_Miecznikk_PriMa_1724082754595prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_Miecznikk_PriMa_1724082754595
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
