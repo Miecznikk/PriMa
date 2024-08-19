@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_Miecznikk_PriMa_1724082754595-push-trigger-input-set
+  identifier: Build_Miecznikk_PriMa_1724082754595pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_Miecznikk_PriMa_1724082754595
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
